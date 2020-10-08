@@ -7,7 +7,7 @@ The purpose of this app was to generate a novel chess engine with a focus on shi
 - The internal board viewed by the engine is flipped depending on the current player's turn, while the board is shown to the users in a static orientation.
 
 - Every piece owns coordinates denoting its current position, however, considering that the board's orientation is reversed each turn, two pieces of different colors may in fact share the same coordinates. 
-For example, consider a white piece sitting at it's true starting position, A0, the corresponding black piece is sitting at A8, however both pieces have internal coordinates of A0. This is because when the board is flipped for black's turn, position A8 becomes A0 and the coordinates of black are now true.
+For example, consider a white piece sitting at it's true starting position, A0, the corresponding black piece is sitting at H8, however both pieces have internal coordinates of A0. This is because when the board is flipped for black's turn, position H8 becomes A0 and the coordinates of black are now true.
 
 - This remains intuitive while considering scenarios where only the player in question's pieces can be moved, as in the simple cases of "Can player white's piece move to this square during player white's turn?".
 This strategy however has lead to some snippets of unintuitive code when we must consider scenarios of how the enemy can move during the current player's turn. A typical example would be "If player white moves their king to this location during player white's turn, would there be any black piece which could attack at this location? If so, ask player white to choose a different location".
