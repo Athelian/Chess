@@ -22,11 +22,11 @@ Note that it is not necessary to flip the coordinates of all the white pieces in
 - This loop can be reused for the direct analogue of '++', the '--' direction. The order of the obstructions is in unimportant, the answer of 'is there an obstruction?' becomes 'yes' the moment a piece is found in any of the squares. Therefore, the relevant algorithms across the program find the index position with the lowest index positions first, and then use the same single positive increment for-loop to check the squares.
 - This technique fails however when we must check two opposing directions at the same time, as in, when we are going positive in one direction and negative in the other. One way to fix this would be to use the 'board-flip' method for the movement logic outlined above. However, this board flip was originally intended to reorder only the rows of the array in a vertical fashion so that the board could be viewed from either direction as if it were sitting in front of two people at a table, not in a complete mirror image fashion where the columns are flipped in addition to the rows.
 - This led to the original implementation of a logic-gate in the board-flip method which will flip columns in addition to rows depending on a boolean argument passed in at the time of the method-call.
-![a](https://ibb.co/NCb6C6s)
-![b](https://ibb.co/Mgf3ybf)
-![c](https://ibb.co/jzfXYz5)
-![d](https://ibb.co/7kD5gXV)
+![Picture3](https://user-images.githubusercontent.com/67857298/95444897-51166300-0999-11eb-947f-9ad8d908daf1.png)
 
+![Picture4](https://user-images.githubusercontent.com/67857298/95444901-51aef980-0999-11eb-826f-7bee5049e2b4.png)
+![Picture5](https://user-images.githubusercontent.com/67857298/95444902-51aef980-0999-11eb-9c80-73ddab84ff38.png)
+![Picture6](https://user-images.githubusercontent.com/67857298/95444903-52479000-0999-11eb-8e8f-c1a873196f6c.png)
 
 ### Efficiency (writing more code, but reducing the processing time)
 - The checkmate test after checking the enemy player is simple and has numerous exit points as the board conditions get more complicated:
