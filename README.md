@@ -1,4 +1,4 @@
-# Object Oriented Chess Game Engine
+# Efficient OOP Chess Engine
 
 The purpose of this app was to generate a novel chess engine with a focus on shifting away from hard-coded values, as in every piece either possesses its own logic, or inherits shared logic for determining its moveset.
 
