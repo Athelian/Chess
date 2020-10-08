@@ -27,7 +27,7 @@ Note that it is not necessary to flip the coordinates of all the white pieces in
 ![Picture3](https://user-images.githubusercontent.com/67857298/95444897-51166300-0999-11eb-947f-9ad8d908daf1.png)
 
 # Consolidating a secondary axis diagonal move into a primary axis diagonal move
-![Picture7](https://user-images.githubusercontent.com/67857298/95449364-9f2e6500-099f-11eb-8ddc-ec5ce7cd5392.png)
+![Picture7](https://user-images.githubusercontent.com/67857298/95449634-03512900-09a0-11eb-9b78-6bbc635ec1ab.png)
 
 ### Efficiency (writing more code, but reducing the processing time)
 - The checkmate test after checking the enemy player is simple and has numerous exit points as the board conditions get more complicated:
