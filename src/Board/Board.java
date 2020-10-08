@@ -27,7 +27,7 @@ public class Board {
         enemyPlayer = finishingPlayer;
     }
 
-    void fillBoard(Player player) {
+    private void fillBoard(Player player) {
         for (Piece piece : player.playerPieces) {
             for (int[] position : piece.INITIALS) {
                 if (board[position[0]][position[1]] == null) {
@@ -94,7 +94,7 @@ public class Board {
         System.out.println("-----------------------------------------------"); //Border
     }
 
-    String showTrash() {
+    private String showTrash() {
         String graveyard = "";
         for (Piece piece : deadPieces) {
             graveyard += " " + piece.showSelf();
