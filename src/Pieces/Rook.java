@@ -11,7 +11,7 @@ public class Rook extends Piece {
         super(white, NAME, INITIALS);
     }
 
-    public boolean legalMove(int[] start, int[] end, Board board) {
+    public boolean legalMove(int[] end, Board board) {
         if (super.checkLinear(end)){
             if (board.obstructionPresent(super.getLinearObstructions(end))) {
                 return false;

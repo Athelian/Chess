@@ -16,7 +16,6 @@ public class App {
 
         PieceSelection:
         while (true) {
-            board.checkCheckMated();
             if (board.currentPlayer.WHITE) {
                 System.out.println("It is white's turn!");
             } else {
@@ -35,14 +34,12 @@ public class App {
             checkExit(startInput, sc);
 
             if (startInput.equals("skip")) {
-                // if (!nowChecked(board, false)) {
-                //     System.out.println("You are skipping your turn!");
-                //     turnEnd(board);
-                // } else {
-                //     System.out.println("You cannot skip while you are checked!\nPlease make a move");
-                // }
-                System.out.println("You are skipping your turn!");
-                board.turnEnd();
+                if (!board.nowChecked(false)) {
+                    System.out.println("You are skipping your turn!");
+                    board.turnEnd();
+                } else {
+                    System.out.println("You cannot skip while you are checked!\nPlease make a move");
+                }
                 continue;
             } 
 
@@ -73,6 +70,7 @@ public class App {
             System.out.println("You have selected " + selectedPiece.NAME + " at " +
                                 startInput.charAt(0) + startInput.charAt(1) + "!");
 
+            LocationSelection:
             while (true) {
                 System.out.println( "Enter location to move or type 'skip' to skip your turn" + 
                                     " (you must move this piece or skip your turn)");
@@ -120,9 +118,11 @@ public class App {
 
                 if (board.willBeChecked(startCoords, endCoords, true)) {
                     System.out.println("You cannot check yourself!\nPlease make an appropriate move");
+                    continue LocationSelection;
                 }
                 board.movePiece(startCoords, endCoords, true);
                 board.turnEnd();
+                board.checkCheckMated();
                 break;
             }
         }

@@ -84,7 +84,7 @@ public abstract class Piece {
         return true;
     }
     
-    protected List<int[]> getDiagonalObstructions(int[] end) {
+    protected List<int[]> getDiagonalObstructions(int[] end, Board board) {
         int diffx = end[1] - this.currentPosition[1];
         int diffy = end[0] - this.currentPosition[0];
         int squaresToCheck = Math.abs(diffx) - 1;
@@ -96,6 +96,7 @@ public abstract class Piece {
             secondaryAxis = true;
             mirrorCurrentPosition(true);
             mirrorYCoordinate(end);
+            board.mirror("horizontal");
         }
 
         int lowestIndexOfMoveX = Math.min(this.currentPosition[1], end[1]);
@@ -111,6 +112,7 @@ public abstract class Piece {
         if ( secondaryAxis ) {
             mirrorCurrentPosition(true);
             mirrorYCoordinate(end);
+            board.mirror("horizontal");
         }
         return intermediateSquareCoordinates;
     }

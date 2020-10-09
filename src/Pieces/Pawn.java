@@ -18,7 +18,7 @@ public class Pawn extends Piece {
         int diffx = end[1] - this.currentPosition[1];
         int diffy = end[0] - this.currentPosition[0];
         Piece selectedSquare = board.board[end[0]][end[1]];
-        if ( (Math.abs(diffx) == 1 && Math.abs(diffy) == 1 && selectedSquare != null && selectedSquare.WHITE != WHITE) ||
+        if ( (Math.abs(diffx) == 1 && diffy == 1 && selectedSquare != null && selectedSquare.WHITE != WHITE) ||
              (diffx == 0 && diffy == 1 && selectedSquare == null)) {
             return true;
         }

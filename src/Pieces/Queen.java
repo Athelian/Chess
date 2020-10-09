@@ -13,7 +13,7 @@ public class Queen extends Piece {
 
     @Override
     public boolean legalMove(int[] end, Board board) {
-        if ( super.checkDiagonal(end)   &&   !board.obstructionPresent(super.getDiagonalObstructions(end)) ||
+        if ( super.checkDiagonal(end)   &&   !board.obstructionPresent(super.getDiagonalObstructions(end, board)) ||
              super.checkLinear(end)     &&   !board.obstructionPresent(super.getLinearObstructions(end))) {
                 return true;
         }
@@ -23,7 +23,7 @@ public class Queen extends Piece {
     @Override
     public List<int[]> getObstructions(int[] end, Board board) {
         if (super.checkDiagonal(end)) {
-            return super.getDiagonalObstructions(end);
+            return super.getDiagonalObstructions(end, board);
         }
         return super.getLinearObstructions(end);
     }

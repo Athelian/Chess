@@ -39,7 +39,7 @@ public class Board {
         }
     }
 
-    private void mirror(String direction) {
+    public void mirror(String direction) {
         for (int i = 0 ; i < board.length - 0.5 * board.length ; i++) {
             if (direction.equals("horizontal")) {
                 Piece[] holder = board[i];
@@ -162,8 +162,8 @@ public class Board {
                 break;
             }
         }
-        mirror("diagonal");
         playerKing.mirrorCurrentPosition(false);
+        mirror("diagonal");
 
         return checked;
     }
@@ -197,17 +197,18 @@ public class Board {
             }
         }
 
+        mirror("diagonal");
+        playerKing.mirrorCurrentPosition(false);
         for (Piece enemyPiece : enemyPlayer.playerPieces) {
-            enemyPiece.mirrorCurrentPosition(false);
             if (enemyPiece.legalMove(playerKing.currentPosition, this)) {
-                enemyPiece.mirrorCurrentPosition(false);
                 checkingPiece = enemyPiece;
                 break;
             }
-            enemyPiece.mirrorCurrentPosition(false);
         }
+        playerKing.mirrorCurrentPosition(false);
+        mirror("diagonal");
 
-        checkingPiece.mirrorCurrentPosition(false); 
+        checkingPiece.mirrorCurrentPosition(false);
         for (Piece playerPiece : currentPlayer.playerPieces) {
             if (playerPiece.legalMove(checkingPiece.currentPosition, this) && 
                                       playerPiece.NAME != "King"    ) {
@@ -215,7 +216,6 @@ public class Board {
                 return;
             }
         }
-        checkingPiece.mirrorCurrentPosition(false);
 
         if (checkingPiece.NAME == "Knight" || checkingPiece.NAME == "Pawn" ) {
             gameOver(checkingPiece);
@@ -229,7 +229,8 @@ public class Board {
 
         for (int[] square : blockSquares) {
             for (Piece playerPiece : currentPlayer.playerPieces) {
-                if (playerPiece.legalMove(square, this)) {
+                if (playerPiece.legalMove(square, this) && playerPiece.NAME != "King") {
+                    checkingPiece.mirrorCurrentPosition(false);
                     return;
                 }
             }
@@ -240,5 +241,6 @@ public class Board {
     private void gameOver(Piece checkingPiece) {
         System.out.println( "Player " + currentPlayer.PLAYER_NAME + " loses!!\n" +
                             "The winning piece is: " + checkingPiece + "!");
+        System.exit(0);
     }
 }
