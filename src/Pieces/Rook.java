@@ -27,13 +27,4 @@ public class Rook extends Piece {
     public List<int[]> getObstructions(int[] end, Board board) {
         return super.getLinearObstructions(end);
     }
-
-    @Override
-    public String showSelf() {
-        if (WHITE) {
-            return "RW";
-        } else {
-            return "RB";
-        }
-    }
 }

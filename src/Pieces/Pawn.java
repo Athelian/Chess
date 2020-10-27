@@ -26,13 +26,4 @@ public class Pawn extends Piece {
         }
         return false;
     }
-
-    @Override
-    public String showSelf() {
-        if (WHITE) {
-            return "PW";
-        } else {
-            return "PB";
-        }
-    }
 }

@@ -46,13 +46,4 @@ public class King extends Piece {
         }
         return false;
     }
-
-    @Override
-    public String showSelf() {
-        if (WHITE) {
-            return "KW";
-        } else {
-            return "KB";
-        }
-    }
 }

@@ -2,9 +2,6 @@ package Board;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//import GUI.DragListener;
-import GUI.*;
 import Pieces.*;
 import players.Player;
 
@@ -66,39 +63,6 @@ public class Board {
         return true;
     }
 
-    public void showBoard() {
-        
-        String row = "";
-        System.out.println("-----------------------------------------------"); //Border
-        System.out.println("   a     b     c     d     e     f     g     h");
-
-        for(int i = 1; i < 9; i++){ //Loop row
-            row += Integer.toString(i);
-            for(int j = 0; j < 8; j++) { //Loop column
-                if (!(board[i-1][j] == null)) {
-                    row += " {" + board[i-1][j].showSelf() + "} ";
-                } else {
-                 row += " [  ] ";
-                }
-            }
-
-            if (i == 3) { //If it's the middle row, print graveyard
-                System.out.println(row + "  GRAVEYARD");
-            }
-            else if (i == 4) { 
-            //System.out.println(row + showTrash());
-
-            } else { //If not a special row, print the row
-                System.out.println(row);
-            }
-
-            System.out.println(""); //Print empty line if new row
-            row = ""; //Set row string back to empty
-        }
-        System.out.println("-----------------------------------------------"); //Border
-    }
-
-
     public void movePiece(int[] start, int[] end, boolean realMove) {
         Piece playerPiece = board[start[0]][start[1]];
         Piece enemyPiece = null;
@@ -107,8 +71,8 @@ public class Board {
             enemyPiece = board[end[0]][end[1]];
             enemyPlayer.playerPieces.remove(board[end[0]][end[1]]);
             if (realMove) {
-                System.out.println("Your " + playerPiece.NAME + " destroyed the enemy's " +
-                                    enemyPiece.NAME);
+                // System.out.println("Your " + playerPiece.NAME + " destroyed the enemy's " +
+                //                     enemyPiece.NAME);
                 deadPieces.add(enemyPiece);
             }
         }
@@ -154,9 +118,9 @@ public class Board {
         for (Piece enemyPiece : enemyPlayer.playerPieces) {
             if (enemyPiece.legalMove(playerKing.currentPosition, this)) {
                 checked = true;
-                if (warningsOn) {
-                    System.out.println("The enemy's " + enemyPiece.NAME + " can attack your king if you move here!!");
-                }
+                // if (warningsOn) {
+                //     System.out.println("The enemy's " + enemyPiece.NAME + " can attack your king if you move here!!");
+                // }
                 break;
             }
         }
@@ -236,8 +200,8 @@ public class Board {
     }
 
     private void gameOver(Piece checkingPiece) {
-        System.out.println( "Player " + currentPlayer.PLAYER_NAME + " loses!!\n" +
-                            "The winning piece is: " + checkingPiece + "!");
+        // System.out.println( "Player " + currentPlayer.PLAYER_NAME + " loses!!\n" +
+        //                     "The winning piece is: " + checkingPiece + "!");
         System.exit(0);
     }
 }

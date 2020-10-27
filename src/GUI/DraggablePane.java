@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import Board.Board;
 
-public class DragLabelOnLayeredPane extends JLayeredPane {
+public class DraggablePane extends JLayeredPane {
     /**
      *
      */
@@ -22,7 +22,7 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
     private JPanel backingPanel = new JPanel(gridlayout);
     private JPanel[][] panelGrid = new JPanel[GRID_ROWS][GRID_COLS];
 
-    public DragLabelOnLayeredPane(Board board, GUI gui) {
+    public DraggablePane(Board board, GUI gui) {
         for (int row = 0; row < 8; row++) {
             for (int column = 0; column < 8; column++) {
                 panelGrid[row][column] = new JPanel(new GridBagLayout());
@@ -41,8 +41,13 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
 
                     panelGrid[row][column].add(pieceIcon);
                 }
+
+
             }
         }
+        JLabel signature = new JLabel();
+        signature.setText("EAF");
+        panelGrid[7][7].add(signature);
 
         backingPanel.setSize(WIDTH, HEIGHT);
         setPreferredSize(LAYERED_PANE_SIZE);
@@ -71,7 +76,8 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
             clickedPanel = (JPanel) backingPanel.getComponentAt(me.getPoint());
             Component[] components = clickedPanel.getComponents();
             if (components.length == 0) {
-                System.out.println("There is no piece here!\nPlease try again");
+                gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 25));
+                gui.textfield.setText("<html><body>There is no piece here!<br>Please try again</body></html>");
                 return;
             }
             // if we click on jpanel that holds a jlabel
@@ -92,7 +98,8 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
                 }
                 
                 if (board.board[clickedPanelPos[0]][clickedPanelPos[1]].WHITE != board.currentPlayer.WHITE) {
-                    System.out.println("This is not your piece!\nPlease try again");
+                    gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 25));
+                    gui.textfield.setText("<html><body>This is not your piece!<br>Please try again</body></html>");
                     return;
                 }
 
@@ -134,11 +141,18 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
             JPanel droppedPanel = (JPanel) backingPanel.getComponentAt(me.getPoint());
             if (droppedPanel == null) {
                 // if off the grid, return label to home
-                clickedPanel.add(dragLabel);
-                        clickedPanel.revalidate();
-                        repaint();
-                        dragLabel = null;
-                        return;
+                if (clickedPanel.getComponents().length == 0) {
+                    clickedPanel.add(dragLabel);
+                } else {
+                    JLabel eaf = (JLabel) clickedPanel.getComponent(0);
+                    clickedPanel.remove(eaf);
+                    clickedPanel.add(dragLabel);
+                    clickedPanel.add(eaf);
+                }
+                clickedPanel.revalidate();
+                repaint();
+                dragLabel = null;
+                return;
             } else {
                 searchPanelGrid: for (int row = 0; row < panelGrid.length; row++) {
                     for (int col = 0; col < panelGrid[row].length; col++) {
@@ -156,8 +170,16 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
                 }
 
                 if (!board.board[clickedPanelPos[0]][clickedPanelPos[1]].legalMove(droppedPanelPos, board)) {
-                    System.out.println("You cannot move this piece like that!\nPlease try again");
-                    clickedPanel.add(dragLabel);
+                    gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 25));
+                    gui.textfield.setText("<html><body>You cannot move this piece like that!<br>Please try again</body></html>");
+                    if (clickedPanel.getComponents().length == 0) {
+                        clickedPanel.add(dragLabel);
+                    } else {
+                        JLabel eaf = (JLabel) clickedPanel.getComponent(0);
+                        clickedPanel.remove(eaf);
+                        clickedPanel.add(dragLabel);
+                        clickedPanel.add(eaf);
+                    }
                     clickedPanel.revalidate();
                     repaint();
                     dragLabel = null;
@@ -165,8 +187,16 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
                 }
 
                     if (board.board[droppedPanelPos[0]][droppedPanelPos[1]] != null && board.board[droppedPanelPos[0]][droppedPanelPos[1]].WHITE == board.currentPlayer.WHITE) {
-                        System.out.println("You cannot move onto one of your own pieces!\nPlease try again");
-                        clickedPanel.add(dragLabel);
+                        gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 25));
+                        gui.textfield.setText("<html><body>You cannot move onto one of your own pieces!<br>Please try again</body></html>");
+                        if (clickedPanel.getComponents().length == 0) {
+                            clickedPanel.add(dragLabel);
+                        } else {
+                            JLabel eaf = (JLabel) clickedPanel.getComponent(0);
+                            clickedPanel.remove(eaf);
+                            clickedPanel.add(dragLabel);
+                            clickedPanel.add(eaf);
+                        }
                         clickedPanel.revalidate();
                         repaint();
                         dragLabel = null;
@@ -174,8 +204,16 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
                     }
     
                     if (board.willBeChecked(clickedPanelPos, droppedPanelPos, true)) {
-                        System.out.println("You cannot check yourself!\nPlease make an appropriate move");
-                        clickedPanel.add(dragLabel);
+                        gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 25));
+                        gui.textfield.setText("<html><body>You cannot check yourself!<br>Please try again</body></html>");
+                        if (clickedPanel.getComponents().length == 0) {
+                            clickedPanel.add(dragLabel);
+                        } else {
+                            JLabel eaf = (JLabel) clickedPanel.getComponent(0);
+                            clickedPanel.remove(eaf);
+                            clickedPanel.add(dragLabel);
+                            clickedPanel.add(eaf);
+                        }
                         clickedPanel.revalidate();
                         repaint();
                         dragLabel = null;
@@ -184,22 +222,41 @@ public class DragLabelOnLayeredPane extends JLayeredPane {
 
                     if (board.board[droppedPanelPos[0]][droppedPanelPos[1]] != null && board.board[droppedPanelPos[0]][droppedPanelPos[1]].WHITE != board.currentPlayer.WHITE) {
                         if (!board.currentPlayer.WHITE) {
-                            panelGrid[7 - droppedPanelPos[0]][7 - droppedPanelPos[1]].removeAll();
+                            Component[] a = panelGrid[7 - droppedPanelPos[0]][7 - droppedPanelPos[1]].getComponents();
+                            for (Component component : a) {
+                                JLabel b = (JLabel) component;
+                                if (b.getText() != "EAF") {
+                                    panelGrid[7 - droppedPanelPos[0]][7 - droppedPanelPos[1]].remove(b);
+                                }
+                            }
                         } else {
-                            panelGrid[droppedPanelPos[0]][droppedPanelPos[1]].removeAll();
+                            Component[] a = panelGrid[droppedPanelPos[0]][droppedPanelPos[1]].getComponents();
+                            for (Component component : a) {
+                                JLabel b = (JLabel) component;
+                                if (b.getText() != "EAF") {
+                                    panelGrid[droppedPanelPos[0]][droppedPanelPos[1]].remove(b);
+                                }
+                            }
                         }
                     }
-
-                    droppedPanel.add(dragLabel);
+                    if (droppedPanel.getComponents().length == 0) {
+                        droppedPanel.add(dragLabel);
+                    } else {
+                        JLabel eaf = (JLabel) droppedPanel.getComponent(0);
+                        droppedPanel.remove(eaf);
+                        droppedPanel.add(dragLabel);
+                        droppedPanel.add(eaf);
+                    }
                     droppedPanel.revalidate();
                     board.movePiece(clickedPanelPos, droppedPanelPos, true);
                     board.turnEnd();
                     if (board.currentPlayer.WHITE) {
+                        gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 75));
                         gui.textfield.setText("White's turn");
                     } else {
+                        gui.textfield.setFont(new Font("Inke Free", Font.BOLD, 75));
                         gui.textfield.setText("Black's turn");
                     }
-                    board.showBoard();
                     board.checkCheckMated();
                 }
             repaint();

@@ -27,13 +27,4 @@ public class Bishop extends Piece {
     public List<int[]> getObstructions(int[] end, Board board) {
         return super.getDiagonalObstructions(end, board);
     }
-
-    @Override
-    public String showSelf() {
-        if (WHITE) {
-            return "BW";
-        } else {
-            return "BB";
-        }
-    }
 }

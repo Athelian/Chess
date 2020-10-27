@@ -29,13 +29,4 @@ public class Queen extends Piece {
         }
         return super.getLinearObstructions(end);
     }
-    
-    @Override
-    public String showSelf() {
-        if (WHITE) {
-            return "QW";
-        } else {
-            return "QB";
-        }
-    }
 }

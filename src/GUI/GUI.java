@@ -16,11 +16,11 @@ public class GUI {
     public JPanel title_panel = new JPanel();
     public JFrame frame = new JFrame();
     public JLabel textfield = new JLabel();
-    public DragLabelOnLayeredPane chessBoard;
+    public DraggablePane chessBoard;
     public JPanel[][] tiles = new JPanel[8][8];
 
     public GUI(Board board) {
-        this.chessBoard = new DragLabelOnLayeredPane(board, this);
+        this.chessBoard = new DraggablePane(board, this);
         title_panel.setLayout(new BorderLayout());
         title_panel.setPreferredSize(new Dimension(600,100));
         frame.setTitle("Chess");
@@ -37,12 +37,9 @@ public class GUI {
         textfield.setText("White's Turn");
         textfield.setOpaque(true);
 
-        
         title_panel.add(textfield);
         frame.add(title_panel, BorderLayout.NORTH);
-
         frame.pack();
-
 
         ImageIcon image = new ImageIcon("src\\Images\\logo.png");
         frame.setIconImage(image.getImage());

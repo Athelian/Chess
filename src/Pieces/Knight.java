@@ -21,13 +21,4 @@ public class Knight extends Piece {
         }
         return false;
     }
-
-    @Override
-    public String showSelf() {
-        if (WHITE) {
-            return "NW";
-        } else {
-            return "NB";
-        }
-    }
 }

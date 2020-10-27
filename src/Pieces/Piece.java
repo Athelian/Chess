@@ -23,10 +23,6 @@ public abstract class Piece {
         }
     }
 
-    public String showSelf() {
-        return "";
-    }
-
     public boolean legalMove(int[] end, Board board){
         return false;
     }
@@ -103,7 +99,6 @@ public abstract class Piece {
             mirrorCurrentPosition(true);
             mirrorYCoordinate(end);
             board.mirror("horizontal");
-            board.showBoard();
         }
 
         int lowestIndexOfMoveX = Math.min(this.currentPosition[1], end[1]);
@@ -120,7 +115,6 @@ public abstract class Piece {
             mirrorCurrentPosition(true);
             mirrorYCoordinate(end);
             board.mirror("horizontal");
-            board.showBoard();
             for (int[] square : intermediateSquareCoordinates) {
                 mirrorYCoordinate(square);
             }
