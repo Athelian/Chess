@@ -9,12 +9,18 @@ public abstract class Piece {
     public final String NAME;
     public final boolean WHITE;
     public final int[][] INITIALS;
+    public final String SYMBOL;
     public int[] currentPosition = new int[2];
 
-    protected Piece(boolean white, String name, int[][] initials) {
+    protected Piece(boolean white, String name, int[][] initials, String white_symbol, String black_symbol) {
         this.WHITE = white;
         this.NAME = name;
         this.INITIALS = initials;
+        if (white) {
+            this.SYMBOL = white_symbol;
+        } else {
+            this.SYMBOL = black_symbol;
+        }
     }
 
     public String showSelf() {
@@ -97,6 +103,7 @@ public abstract class Piece {
             mirrorCurrentPosition(true);
             mirrorYCoordinate(end);
             board.mirror("horizontal");
+            board.showBoard();
         }
 
         int lowestIndexOfMoveX = Math.min(this.currentPosition[1], end[1]);
@@ -113,6 +120,10 @@ public abstract class Piece {
             mirrorCurrentPosition(true);
             mirrorYCoordinate(end);
             board.mirror("horizontal");
+            board.showBoard();
+            for (int[] square : intermediateSquareCoordinates) {
+                mirrorYCoordinate(square);
+            }
         }
         return intermediateSquareCoordinates;
     }

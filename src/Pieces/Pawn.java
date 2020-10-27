@@ -4,13 +4,15 @@ import Board.Board;
 
 public class Pawn extends Piece {
     private static final String NAME = "Pawn";
+    private static final String WHITE_SYMBOL = "♙";
+    private static final String BLACK_SYMBOL = "♟";
     private static final int[][] INITIALS = {{1,0}, {1,1},
                                              {1,2}, {1,3},
                                              {1,4}, {1,5},
                                              {1,6}, {1,7}};
 
     public Pawn(boolean white) {
-        super(white, NAME, INITIALS);
+        super(white, NAME, INITIALS, WHITE_SYMBOL, BLACK_SYMBOL);
     }
 
     @Override

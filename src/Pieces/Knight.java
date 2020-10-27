@@ -5,9 +5,11 @@ import Board.Board;
 public class Knight extends Piece {
     static final String NAME = "Knight";
     static final int[][] INITIALS = {{0,1}, {0,6}};
+    private static final String WHITE_SYMBOL = "♘";
+    private static final String BLACK_SYMBOL = "♞";
 
     public Knight(boolean white) {
-        super(white, NAME, INITIALS);
+        super(white, NAME, INITIALS, WHITE_SYMBOL, BLACK_SYMBOL);
     }
     
     @Override

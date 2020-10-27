@@ -6,10 +6,12 @@ import Board.Board;
 
 public class King extends Piece {
     private static final String NAME = "King";
-    private static final int[][] INITIALS = {{4,2}};
+    private static final String WHITE_SYMBOL = "♔";
+    private static final String BLACK_SYMBOL = "♚";
+    private static final int[][] INITIALS = {{0,3}};
 
     public King(boolean white) {
-        super(white, NAME, INITIALS);
+        super(white, NAME, INITIALS, WHITE_SYMBOL, BLACK_SYMBOL);
     }
 
     public List<int[]> possMoves(Board board) {

@@ -2,6 +2,9 @@ package Board;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import GUI.DragListener;
+import GUI.*;
 import Pieces.*;
 import players.Player;
 
@@ -40,7 +43,7 @@ public class Board {
     }
 
     public void mirror(String direction) {
-        for (int i = 0 ; i < board.length - 0.5 * board.length ; i++) {
+        for (int i = 0; i < board.length - 0.5 * board.length; i++) {
             if (direction.equals("horizontal")) {
                 Piece[] holder = board[i];
                 board[i] = board[board.length - 1 - i];
@@ -64,6 +67,7 @@ public class Board {
     }
 
     public void showBoard() {
+        
         String row = "";
         System.out.println("-----------------------------------------------"); //Border
         System.out.println("   a     b     c     d     e     f     g     h");
@@ -82,7 +86,7 @@ public class Board {
                 System.out.println(row + "  GRAVEYARD");
             }
             else if (i == 4) { 
-            System.out.println(row + showTrash());
+            //System.out.println(row + showTrash());
 
             } else { //If not a special row, print the row
                 System.out.println(row);
@@ -94,21 +98,15 @@ public class Board {
         System.out.println("-----------------------------------------------"); //Border
     }
 
-    private String showTrash() {
-        String graveyard = "";
-        for (Piece piece : deadPieces) {
-            graveyard += " " + piece.showSelf();
-        }
-        return graveyard;
-    }
 
     public void movePiece(int[] start, int[] end, boolean realMove) {
         Piece playerPiece = board[start[0]][start[1]];
+        Piece enemyPiece = null;
 
-        if (realMove) {
-            if (board[end[0]][end[1]] != null) {
-                Piece enemyPiece = board[end[0]][end[1]];
-                enemyPlayer.playerPieces.remove(board[end[0]][end[1]]);
+        if (board[end[0]][end[1]] != null) {
+            enemyPiece = board[end[0]][end[1]];
+            enemyPlayer.playerPieces.remove(board[end[0]][end[1]]);
+            if (realMove) {
                 System.out.println("Your " + playerPiece.NAME + " destroyed the enemy's " +
                                     enemyPiece.NAME);
                 deadPieces.add(enemyPiece);
@@ -123,6 +121,9 @@ public class Board {
         originalPiece.currentPosition = start;
         board[start[0]][start[1]] = originalPiece;
         board[end[0]][end[1]] = finalSquare;
+        if (finalSquare != null) {
+            enemyPlayer.playerPieces.add(finalSquare);
+        }
     }
     
     public boolean obstructionPresent(List<int[]> intermediateSquareCoordinates) {
@@ -137,20 +138,17 @@ public class Board {
     public void turnEnd() {
         if (currentPlayer.WHITE) {
             switchTurns();
-            showBoard();
             mirror("diagonal");
 
         } else {             
             switchTurns();
             mirror("diagonal");
-            showBoard();
         }
     }
 
     public boolean nowChecked(boolean warningsOn) {
         Piece playerKing = currentPlayer.playerPieces.get(0);
         boolean checked = false;
-
         mirror("diagonal");
         playerKing.mirrorCurrentPosition(false);
         for (Piece enemyPiece : enemyPlayer.playerPieces) {
@@ -178,7 +176,6 @@ public class Board {
             checked = true;
         }
         reverseMove(start, end, startPiece, selectedSquare);
-
         return checked;
     }
 

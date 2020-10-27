@@ -5,10 +5,12 @@ import Board.Board;
 
 public class Queen extends Piece {
     static final String NAME = "Queen";
-    static final int[][] INITIALS = {{5,4}};
+    private static final String WHITE_SYMBOL = "♕";
+    private static final String BLACK_SYMBOL = "♛";
+    static final int[][] INITIALS = {{0,4}};
 
     public Queen(boolean white) {
-        super(white, NAME, INITIALS);
+        super(white, NAME, INITIALS, WHITE_SYMBOL, BLACK_SYMBOL);
     }
 
     @Override

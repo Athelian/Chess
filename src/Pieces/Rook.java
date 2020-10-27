@@ -5,10 +5,12 @@ import Board.Board;
 
 public class Rook extends Piece {
     static String NAME = "Rook";
+    private static final String WHITE_SYMBOL = "♖";
+    private static final String BLACK_SYMBOL = "♜";
     static int[][] INITIALS = {{0,0},{0,7}};
 
     public Rook(boolean white) {
-        super(white, NAME, INITIALS);
+        super(white, NAME, INITIALS, WHITE_SYMBOL, BLACK_SYMBOL);
     }
 
     public boolean legalMove(int[] end, Board board) {
