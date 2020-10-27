@@ -2,9 +2,7 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
 import Board.Board;
 
 public class DraggablePane extends JLayeredPane {

@@ -1,8 +1,7 @@
-package players;
+package Player;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import Pieces.*;
 
 public class Player {

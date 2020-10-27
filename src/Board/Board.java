@@ -3,7 +3,7 @@ package Board;
 import java.util.ArrayList;
 import java.util.List;
 import Pieces.*;
-import players.Player;
+import Player.Player;
 
 public class Board {
     public Piece[][] board;
